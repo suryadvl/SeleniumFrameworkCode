@@ -93,68 +93,45 @@ public class DriverFactory {
 		  
 		  String envName = System.getProperty("env");
 		  
-		  System.out.println("running the tests on env :" + envName);
+		  System.out.println("running the tests on env :" +envName);
 		  
 		  try {
-			  
-		  if(envName==null) {
-			  
-			  System.out.println("evn is null...hence running the tests on qa env" + envName);
-			  
-				ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
-			}
-			
-			  
-	  
-		  else {
-			  
-			  switch(envName.toLowerCase().trim()) {
-			  
-			  case "qa":
-				  ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
-				  break;
-				  
-			  case "dev":
-				  ip = new FileInputStream("./src/test/resources/config/dev.config.properties");
-				  break;
-				  
-			  case "stage":
-				  ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
-				  break;
-				  
-			  case "uat":
-				  ip = new FileInputStream("./src/test/resources/config/config.properties");
-				  break;
-				  
-				  default:
-					  
-					  System.out.println("Plz pass right env name :"+ envName);
+				if (envName == null) {
+					System.out.println("env is null....hence running tests on QA env");
+					ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+				} else {
+					switch (envName.toLowerCase().trim()) {
+					case "qa":
+						ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+						break;
+					case "dev":
+						ip = new FileInputStream("./src/test/resources/config/dev.config.properties");
+						break;
+					case "stage":
+						ip = new FileInputStream("./src/test/resources/config/stage.config.properties");
+						break;
+					case "uat":
+						ip = new FileInputStream("./src/test/resources/config/uat.config.properties");
+						break;
+					case "prod":
+						ip = new FileInputStream("./src/test/resources/config/config.properties");
+						break;
 
-                       throw new FrameworkException("Invalid ENV Name");
-					  
-			  
-			  }
-		  }
-		
-			  
-		  
-		  prop.load(ip);
-		  }
-		  
-		  
-		  catch (FileNotFoundException e) {
-			  e.printStackTrace();
-		  }
-		  catch(IOException e) {
-			  e.printStackTrace();
-		  }
-		  
-		  return prop;
-		  
-		 
-		 
-	 }
-	 
+					default:
+						System.out.println("plz pass the right env name..." + envName);
+						throw new FrameworkException("INVALID ENV NAME");
+					}
+				}
+
+				prop.load(ip);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return prop;
+		}
 	 
 	 
 	 /**

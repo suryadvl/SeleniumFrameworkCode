@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 
@@ -14,6 +15,8 @@ import com.qa.opencart.pages.LoginPage;
 import com.qa.opencart.pages.ProductInfoPage;
 import com.qa.opencart.pages.RegistrationPage;
 import com.qa.opencart.pages.ResultsPage;
+
+import io.qameta.allure.Step;
 
 public class BaseTest {
 	
@@ -29,10 +32,10 @@ public class BaseTest {
      
      protected SoftAssert softAssert;
      
-     
+     @Step("Setup with browser : {0} and inti the properities")
     @Parameters({"browser"})
 	@BeforeTest
-	public void setup(String browserName) {
+	public void setup(@Optional("chrome")String browserName) {
 		
 		df = new DriverFactory();
 		
@@ -53,7 +56,7 @@ public class BaseTest {
 	}
 	
 	
-	
+     @Step("Close the browser ")
 	@AfterTest
 	public void tearDown() {
 	

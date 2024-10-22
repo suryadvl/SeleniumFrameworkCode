@@ -1,6 +1,7 @@
 package com.qa.opencart.pages;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +91,12 @@ public class ProductInfoPage {
 
     public Map<String,String> getProductData() {
     	
-    	productMap = new HashMap<String,String>();	    	
+    	productMap = new HashMap<String,String>();
+    	//productMap = new LinkedHashMap<String,String>(); = to maintain the insertion order
+    	
+    //	productMap = new TreeMap<String,String>(); = to maintain the alphabet order.
+    //	productMap = new HashMap<String,String>();=  it wont maintain the alphabet order.
+    	
     	productMap.put("productHeader",getProductHeader() );
     	getProductMetaData();
     	getProductPriceData();

@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.qa.opencart.constants.AppConstants;
 import com.qa.opencart.utils.ElementUtil;
 
+import io.qameta.allure.Step;
+
 public class LoginPage {
 
 	private WebDriver driver;
@@ -26,12 +28,14 @@ public class LoginPage {
 	private By registerLink = By.linkText("Register");
 	
 
+	
 	public LoginPage(WebDriver driver) {
 
 		this.driver = driver;
 		eleUtil = new ElementUtil(driver);
 	}
 
+	@Step("getting loginpage title value")
 	public String getLoginPageTitle() {
 
 		String title = eleUtil.waitForTitleContainsAndReturn(AppConstants.LOGIN_PAGE_TITLE,
@@ -43,6 +47,7 @@ public class LoginPage {
 
 	}
 
+	@Step("getting loginpage URL value")
 	public String getLoginPageURL() {
 
 		String url = eleUtil.waitForURLContainsAndReturn(AppConstants.LOGIN_PAGE_FRACTION_URL,
@@ -54,6 +59,7 @@ public class LoginPage {
 
 	}
 
+	@Step("getting forgotpwdlinkExist value")
 	public boolean isForgotPwdLilnkExist() {
 
 		return eleUtil.isElementDisplayed(forgotpasswordLink);
@@ -62,6 +68,7 @@ public class LoginPage {
 
 	}
 
+	@Step("IsLogo Exists")
 	public boolean isLogoExist() {
 
 		return eleUtil.isElementDisplayed(logo);
@@ -69,6 +76,7 @@ public class LoginPage {
 		// return driver.findElement(logo).isDisplayed();
 	}
 
+	@Step("login with username : {0} and password : {1}")
 	public AccountsPage doLogin(String userName, String pwd) {
 
 		eleUtil.waitForElementVisibility(username, AppConstants.DEFAULT_MEDIUM_TIMEOUT).sendKeys(userName);
@@ -92,6 +100,7 @@ public class LoginPage {
 	}
 
 	
+	@Step("Navigate to register page")
 	public RegistrationPage navigateToRegisterPage() {
 		
 		eleUtil.doClick(registerLink);

@@ -17,11 +17,17 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.opencart.errors.AppError;
 import com.qa.opencart.exceptions.BrowserException;
+import com.qa.opencart.exceptions.FrameworkException;
 
 public class DriverFactory {
 	
 	WebDriver driver ;
 	Properties prop;
+	FileInputStream ip;
+	
+	
+   
+	public static String isHighlight;
 	
 	
 	/**
@@ -35,6 +41,8 @@ public class DriverFactory {
 		String browserName =  prop.getProperty("browser");
 		
 		System.out.println("browser Name is :"+browserName );
+		
+		isHighlight=  prop.getProperty("highlight");
 		
 		switch(browserName.toLowerCase().trim()) {
 		
@@ -77,13 +85,63 @@ public class DriverFactory {
 	 * @return
 	 */
 	
+	//mvn clean install -Denv="qa"
+	
 	 public Properties intiProp() {
 		 
 		  prop = new Properties();
+		  
+		  String envName = System.getProperty("env");
+		  
+		  System.out.println("running the tests on env :" + envName);
+		  
 		  try {
-		  FileInputStream ip = new FileInputStream("./src/test/resources/config/config.properties");
+			  
+		  if(envName==null) {
+			  
+			  System.out.println("evn is null...hence running the tests on qa env" + envName);
+			  
+				ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+			}
+			
+			  
+	  
+		  else {
+			  
+			  switch(envName.toLowerCase().trim()) {
+			  
+			  case "qa":
+				  ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+				  break;
+				  
+			  case "dev":
+				  ip = new FileInputStream("./src/test/resources/config/dev.config.properties");
+				  break;
+				  
+			  case "stage":
+				  ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+				  break;
+				  
+			  case "uat":
+				  ip = new FileInputStream("./src/test/resources/config/config.properties");
+				  break;
+				  
+				  default:
+					  
+					  System.out.println("Plz pass right env name :"+ envName);
+
+                       throw new FrameworkException("Invalid ENV Name");
+					  
+			  
+			  }
+		  }
+		
+			  
+		  
 		  prop.load(ip);
 		  }
+		  
+		  
 		  catch (FileNotFoundException e) {
 			  e.printStackTrace();
 		  }
@@ -102,20 +160,17 @@ public class DriverFactory {
 	 /**
 		 * take screenshot 
 		 */
+		/*
+		 * public static String getScreenshot(String methodName) { File srcFile =
+		 * ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);//temp dir
+		 * String path = System.getProperty("user.dir") + "/screenshot/" + methodName +
+		 * "_" + System.currentTimeMillis()+ ".png"; File destination = new File(path);
+		 * try { FileHandler.copy(srcFile, destination); } catch (IOException e) {
+		 * e.printStackTrace(); }
+		 * 
+		 * return path; }
+		 */
 		
-//		public static String getScreenshot(String methodName) {
-//			File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);//temp dir
-//			String path = System.getProperty("user.dir") + "/screenshot/" + methodName + "_" + System.currentTimeMillis()+ ".png";
-//			File destination = new File(path);
-//			try {
-//				FileHandler.copy(srcFile, destination);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//
-//			return path;
-//		}
-//		
 		
 	}
 

@@ -42,8 +42,8 @@ public class LoginPageTest extends BaseTest {
 	}
 	
 	@Severity(SeverityLevel.NORMAL)
-	@Description("Login page URL test")
-	@Feature("This is login URL")
+	@Description("The Login page URL test")
+	@Feature("This is login URL :")
 	@Test
 	public void loginPageURLTest() {
 		
@@ -73,7 +73,7 @@ public class LoginPageTest extends BaseTest {
 	
 	
 	@Severity(SeverityLevel.MINOR)
-	@Description("Login  test")
+	@Description("The Login  test")
 	@Feature("This is login")
 	@Test(priority=Integer.MAX_VALUE)
 	public void LoginTest() {

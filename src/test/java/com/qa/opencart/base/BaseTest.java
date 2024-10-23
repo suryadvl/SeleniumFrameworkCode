@@ -56,7 +56,7 @@ public class BaseTest {
 	}
 	
 	
-     @Step("Close the browser ")
+    @Step("Close the browser ")
 	@AfterTest
 	public void tearDown() {
 	

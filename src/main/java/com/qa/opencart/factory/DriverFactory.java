@@ -91,16 +91,16 @@ public class DriverFactory {
 		 
 		  prop = new Properties();
 		  
-		  String envSurya = System.getProperty("env");
+		  String envName = System.getProperty("env");
 		  
-		  System.out.println("running the tests on env :" +envSurya);
+		  System.out.println("running the tests on env :" +envName);
 		  
 		  try {
-				if (envSurya == null) {
+				if (envName == null) {
 					System.out.println("env is null and no config assigned....hence running tests on QA env");
 					ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
 				} else {
-					switch (envSurya.toLowerCase().trim()) {
+					switch (envName.toLowerCase().trim()) {
 					case "qa":
 						ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
 						break;
@@ -118,7 +118,7 @@ public class DriverFactory {
 						break;
 
 					default:
-						System.out.println("plz pass the right env name..." + envSurya);
+						System.out.println("plz pass the right env name..." + envName);
 						throw new FrameworkException("INVALID ENV NAME");
 					}
 				}
